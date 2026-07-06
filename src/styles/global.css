@@ -216,6 +216,41 @@ ul {
   padding-bottom: 0.6rem;
 }
 
+.hero__sound-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(232, 228, 218, 0.06);
+  border: 1px solid rgba(138, 143, 146, 0.4);
+  color: var(--bone);
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.4rem;
+  margin-bottom: 2rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 700ms var(--ease-liturgy), border-color 700ms var(--ease-liturgy);
+}
+
+.hero__sound-btn:hover {
+  background: rgba(232, 228, 218, 0.12);
+  border-color: var(--silver);
+}
+
+.hero__sound-icon {
+  display: inline-flex;
+  width: 0.9rem;
+  height: 0.9rem;
+  color: var(--bone);
+}
+
+.hero__sound-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
 .hero__cta-line {
   position: absolute;
   left: 0;
@@ -271,13 +306,37 @@ ul {
 
 .guide {
   position: relative;
-  min-height: 100svh;
-  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
   border-top: 1px solid rgba(138, 143, 146, 0.12);
 }
 
-.frame-sequence {
+.guide--image-left .guide__media-col {
+  order: 1;
+}
+.guide--image-left .guide__copy-col {
+  order: 2;
+}
+.guide--image-right .guide__media-col {
+  order: 2;
+}
+.guide--image-right .guide__copy-col {
+  order: 1;
+}
+
+.guide__media-col {
   position: relative;
+  align-self: stretch;
+}
+
+.frame-sequence {
+  height: 100%;
+}
+
+.frame-sequence__sticky {
+  position: sticky;
+  top: 0;
   width: 100%;
   height: 100svh;
   height: 100vh;
@@ -298,12 +357,19 @@ ul {
   pointer-events: none;
 }
 
+.guide__copy-col {
+  display: flex;
+  min-height: 100svh;
+  min-height: 100vh;
+  align-items: center;
+}
+
 .guide__copy {
   position: relative;
   z-index: 2;
-  max-width: 44rem;
+  max-width: 34rem;
+  padding: clamp(3.5rem, 10vh, 7rem) clamp(1.5rem, 5vw, 3.5rem);
   margin: 0 auto;
-  padding: clamp(3.5rem, 10vh, 7rem) clamp(1.25rem, 6vw, 2rem) clamp(5rem, 14vh, 9rem);
 }
 
 .guide__numeral {
@@ -438,5 +504,32 @@ ul {
   .guide__step {
     grid-template-columns: 2rem 1fr;
     gap: 0.9rem;
+  }
+}
+
+/* ---------- Guide grid: stack on narrower viewports ---------- */
+
+@media (max-width: 900px) {
+  .guide {
+    grid-template-columns: 1fr;
+  }
+  .guide--image-left .guide__media-col,
+  .guide--image-right .guide__media-col {
+    order: 1;
+  }
+  .guide--image-left .guide__copy-col,
+  .guide--image-right .guide__copy-col {
+    order: 2;
+  }
+  .guide__copy-col {
+    min-height: 0;
+    padding: 0;
+  }
+  .guide__copy {
+    max-width: 100%;
+    padding: 3rem 1.25rem 4rem;
+  }
+  .frame-sequence__sticky {
+    height: 70vh;
   }
 }

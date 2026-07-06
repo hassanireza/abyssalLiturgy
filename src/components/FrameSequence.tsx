@@ -7,28 +7,32 @@ gsap.registerPlugin(ScrollTrigger);
 interface FrameSequenceProps {
   slug: string;
   frameCount: number;
-  /** Path prefix under /frames, e.g. "pour-over" */
+  /** The scroll span this sequence is scrubbed against. Its top/bottom
+   * defines start and end of playback, so the frame sequence finishes
+   * exactly when this container's scroll range finishes (matching the
+   * height of the recipe text next to it). */
+  containerRef: React.RefObject<HTMLElement>;
   className?: string;
 }
 
 /**
- * Renders a sequence of still frames onto a <canvas>, then scrubs through
- * them tied 1:1 to scroll position inside a tall pinned section — the same
- * technique used for Apple product-page scroll films. The section's total
- * scrollable height determines how much scrolling is required to traverse
- * the whole clip: the video never advances ahead of the user's scroll and
- * never completes early.
+ * Renders a sequence of still frames onto a sticky canvas, scrubbed 1:1
+ * to the scroll progress of an external container (the two-column guide
+ * row). The image never advances ahead of the reader's scroll and never
+ * finishes before the paired recipe text does, since both are driven by
+ * the same scroll span.
  */
-export function FrameSequence({ slug, frameCount, className }: FrameSequenceProps) {
+export function FrameSequence({ slug, frameCount, containerRef, className }: FrameSequenceProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const frameStateRef = useRef({ frame: 0 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const wrapper = wrapperRef.current;
-    if (!canvas || !wrapper) return;
+    const sticky = stickyRef.current;
+    const container = containerRef.current;
+    if (!canvas || !sticky || !container) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -67,10 +71,9 @@ export function FrameSequence({ slug, frameCount, className }: FrameSequenceProp
     }
 
     function resize() {
-      const rect = wrapper!.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas!.width = Math.round(wrapper!.clientWidth * dpr);
-      canvas!.height = Math.round(wrapper!.clientHeight * dpr);
+      canvas!.width = Math.round(sticky!.clientWidth * dpr);
+      canvas!.height = Math.round(sticky!.clientHeight * dpr);
       canvas!.style.width = '100%';
       canvas!.style.height = '100%';
       render();
@@ -79,7 +82,6 @@ export function FrameSequence({ slug, frameCount, className }: FrameSequenceProp
     resize();
     window.addEventListener('resize', resize);
 
-    // Load first frame immediately, then the rest progressively.
     loadImage(0).then(() => {
       if (!cancelled) render();
     });
@@ -91,11 +93,9 @@ export function FrameSequence({ slug, frameCount, className }: FrameSequenceProp
     })();
 
     const st = ScrollTrigger.create({
-      trigger: wrapper,
+      trigger: container,
       start: 'top top',
-      end: `+=${frameCount * 24}`,
-      pin: true,
-      pinSpacing: true,
+      end: 'bottom bottom',
       scrub: 0.35,
       onUpdate: (self) => {
         frameStateRef.current.frame = self.progress * (frameCount - 1);
@@ -108,12 +108,14 @@ export function FrameSequence({ slug, frameCount, className }: FrameSequenceProp
       window.removeEventListener('resize', resize);
       st.kill();
     };
-  }, [slug, frameCount]);
+  }, [slug, frameCount, containerRef]);
 
   return (
-    <div ref={wrapperRef} className={`frame-sequence ${className ?? ''}`}>
-      <canvas ref={canvasRef} className="frame-sequence__canvas" />
-      <div className="frame-sequence__vignette" aria-hidden="true" />
+    <div className={`frame-sequence ${className ?? ''}`}>
+      <div ref={stickyRef} className="frame-sequence__sticky">
+        <canvas ref={canvasRef} className="frame-sequence__canvas" />
+        <div className="frame-sequence__vignette" aria-hidden="true" />
+      </div>
     </div>
   );
 }

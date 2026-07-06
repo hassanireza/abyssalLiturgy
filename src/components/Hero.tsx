@@ -9,14 +9,25 @@ export function Hero() {
     const i = Math.floor(Math.random() * HERO_VIDEO_SLUGS.length);
     return HERO_VIDEO_SLUGS[i];
   });
+  const [soundEnabled, setSoundEnabled] = useState(false);
 
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
     v.play().catch(() => {
-      /* autoplay may be blocked until user interacts; that's fine, poster shows */
+      /* muted autoplay may still be blocked on some browsers; poster shows */
     });
   }, []);
+
+  function enableSound() {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = false;
+    v.play().catch(() => {
+      /* ignore, control still flips visually */
+    });
+    setSoundEnabled(true);
+  }
 
   const base = import.meta.env.BASE_URL;
 
@@ -38,12 +49,29 @@ export function Hero() {
       </div>
 
       <div className="hero__content">
-        <p className="eyebrow">Abyssal Liturgy</p>
+        <p className="eyebrow">Coffee for Today</p>
         <h1 className="hero__title">A Rite of Coffee</h1>
         <p className="hero__subtitle">
           Six vessels. Six methods of extraction. One dark ceremony, performed
-          the same way it has always been performed — deliberately, and alone.
+          the same way it has always been performed, deliberately, and alone.
         </p>
+
+        {!soundEnabled && (
+          <button
+            type="button"
+            className="hero__sound-btn"
+            onClick={enableSound}
+            aria-label="Play with sound"
+          >
+            <span className="hero__sound-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="6,4 20,12 6,20" fill="currentColor" />
+              </svg>
+            </span>
+            Play with sound
+          </button>
+        )}
+
         <a className="hero__cta" href="#pour-over">
           Begin the Rite
           <span className="hero__cta-line" aria-hidden="true" />

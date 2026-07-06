@@ -11,8 +11,8 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
-        {guides.map((guide) => (
-          <GuideSection key={guide.slug} guide={guide} />
+        {guides.map((guide, index) => (
+          <GuideSection key={guide.slug} guide={guide} index={index} />
         ))}
         <footer className="footer">
           <p className="eyebrow">Abyssal Liturgy</p>

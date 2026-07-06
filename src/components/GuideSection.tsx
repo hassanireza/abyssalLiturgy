@@ -8,10 +8,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface GuideSectionProps {
   guide: Guide;
+  /** Alternates media/text side: even index = image left, odd = image right. */
+  index: number;
 }
 
-export function GuideSection({ guide }: GuideSectionProps) {
+export function GuideSection({ guide, index }: GuideSectionProps) {
+  const sectionRef = useRef<HTMLElement>(null);
   const copyRef = useRef<HTMLDivElement>(null);
+  const imageOnRight = index % 2 === 1;
 
   useEffect(() => {
     const el = copyRef.current;
@@ -43,38 +47,51 @@ export function GuideSection({ guide }: GuideSectionProps) {
   }, []);
 
   return (
-    <section className="guide" id={guide.slug} aria-labelledby={`${guide.slug}-title`}>
-      <FrameSequence slug={guide.slug} frameCount={guide.frameCount} />
+    <section
+      className={`guide ${imageOnRight ? 'guide--image-right' : 'guide--image-left'}`}
+      id={guide.slug}
+      aria-labelledby={`${guide.slug}-title`}
+      ref={sectionRef as React.RefObject<HTMLElement>}
+    >
+      <div className="guide__media-col">
+        <FrameSequence
+          slug={guide.slug}
+          frameCount={guide.frameCount}
+          containerRef={sectionRef as React.RefObject<HTMLElement>}
+        />
+      </div>
 
-      <div className="guide__copy" ref={copyRef}>
-        <p className="guide__numeral" data-reveal>
-          {guide.numeral}
-        </p>
-        <p className="eyebrow" data-reveal>
-          {guide.subtitle} · {guide.duration}
-        </p>
-        <h2 className="guide__title" id={`${guide.slug}-title`} data-reveal>
-          {guide.title}
-        </h2>
-        <p className="guide__intro" data-reveal>
-          {guide.intro}
-        </p>
+      <div className="guide__copy-col">
+        <div className="guide__copy" ref={copyRef}>
+          <p className="guide__numeral" data-reveal>
+            {guide.numeral}
+          </p>
+          <p className="eyebrow" data-reveal>
+            {guide.subtitle} · {guide.duration}
+          </p>
+          <h2 className="guide__title" id={`${guide.slug}-title`} data-reveal>
+            {guide.title}
+          </h2>
+          <p className="guide__intro" data-reveal>
+            {guide.intro}
+          </p>
 
-        <ol className="guide__steps">
-          {guide.steps.map((step, i) => (
-            <li className="guide__step" key={step.label} data-reveal>
-              <span className="guide__step-index">{String(i + 1).padStart(2, '0')}</span>
-              <div>
-                <p className="guide__step-label">{step.label}</p>
-                <p className="guide__step-text">{step.text}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
+          <ol className="guide__steps">
+            {guide.steps.map((step, i) => (
+              <li className="guide__step" key={step.label} data-reveal>
+                <span className="guide__step-index">{String(i + 1).padStart(2, '0')}</span>
+                <div>
+                  <p className="guide__step-label">{step.label}</p>
+                  <p className="guide__step-text">{step.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
 
-        <p className="guide__closing" data-reveal>
-          {guide.closing}
-        </p>
+          <p className="guide__closing" data-reveal>
+            {guide.closing}
+          </p>
+        </div>
       </div>
     </section>
   );
