@@ -1,0 +1,442 @@
+:root {
+  --black: #0a0a0c;
+  --charcoal: #1c1e22;
+  --shadow-blue: #12151c;
+  --bone: #e8e4da;
+  --silver: #8a8f92;
+  --silver-dim: #55595c;
+
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --ease-liturgy: cubic-bezier(0.16, 1, 0.3, 1);
+  --nav-height: 4.5rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--black);
+}
+
+body {
+  margin: 0;
+  background: var(--black);
+  color: var(--bone);
+  font-family: var(--sans);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  position: relative;
+}
+
+/* ---------- Grain overlay ---------- */
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+}
+
+.grain-overlay svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- Typography helpers ---------- */
+
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--silver);
+  margin: 0 0 1rem;
+}
+
+/* ---------- Nav ---------- */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+  height: var(--nav-height);
+  background: linear-gradient(to bottom, rgba(10, 10, 12, 0.85), rgba(10, 10, 12, 0));
+  backdrop-filter: blur(2px);
+}
+
+.nav__mark {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  color: var(--bone);
+  opacity: 0.85;
+}
+
+.nav__list {
+  display: flex;
+  gap: clamp(0.75rem, 2vw, 2rem);
+}
+
+.nav__link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4em;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--silver-dim);
+  transition: color 900ms var(--ease-liturgy);
+  white-space: nowrap;
+}
+
+.nav__numeral {
+  font-family: var(--serif);
+  font-style: italic;
+  opacity: 0.6;
+}
+
+.nav__link.is-active,
+.nav__link:hover {
+  color: var(--bone);
+}
+
+@media (max-width: 720px) {
+  .nav__label {
+    display: none;
+  }
+  .nav__list {
+    gap: 1rem;
+  }
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0 1.25rem;
+  text-align: center;
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.55) contrast(1.08) brightness(0.62);
+}
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(10, 10, 12, 0.25), rgba(10, 10, 12, 0.85) 70%),
+    linear-gradient(to bottom, rgba(10, 10, 12, 0.55) 0%, rgba(10, 10, 12, 0.35) 40%, rgba(10, 10, 12, 0.95) 100%);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 42rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero__title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 9vw, 5.5rem);
+  line-height: 1.02;
+  margin: 0 0 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+.hero__subtitle {
+  font-size: clamp(0.9rem, 1.6vw, 1.05rem);
+  line-height: 1.7;
+  font-weight: 300;
+  color: var(--silver);
+  max-width: 34rem;
+  margin: 0 0 2.5rem;
+}
+
+.hero__cta {
+  position: relative;
+  font-size: 0.75rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--bone);
+  padding-bottom: 0.6rem;
+}
+
+.hero__cta-line {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--silver-dim);
+}
+
+.hero__cta-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--bone);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 900ms var(--ease-liturgy);
+}
+
+.hero__cta:hover .hero__cta-line::after {
+  transform: scaleX(1);
+}
+
+.hero__scroll-cue {
+  position: absolute;
+  bottom: clamp(1.5rem, 4vh, 3rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 3.5rem;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.hero__scroll-cue span {
+  display: block;
+  width: 100%;
+  height: 40%;
+  background: var(--silver);
+  animation: scroll-cue 2.2s ease-in-out infinite;
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(250%);
+  }
+}
+
+/* ---------- Guide sections ---------- */
+
+.guide {
+  position: relative;
+  min-height: 100svh;
+  min-height: 100vh;
+  border-top: 1px solid rgba(138, 143, 146, 0.12);
+}
+
+.frame-sequence {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  height: 100vh;
+  background: var(--shadow-blue);
+  overflow: hidden;
+}
+
+.frame-sequence__canvas {
+  width: 100%;
+  height: 100%;
+  filter: grayscale(0.6) contrast(1.1) brightness(0.7);
+}
+
+.frame-sequence__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(10, 10, 12, 0) 45%, rgba(10, 10, 12, 0.92) 100%);
+  pointer-events: none;
+}
+
+.guide__copy {
+  position: relative;
+  z-index: 2;
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: clamp(3.5rem, 10vh, 7rem) clamp(1.25rem, 6vw, 2rem) clamp(5rem, 14vh, 9rem);
+}
+
+.guide__numeral {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--silver);
+  margin: 0 0 0.5rem;
+}
+
+.guide__title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 6vw, 3.75rem);
+  margin: 0 0 1.75rem;
+  letter-spacing: -0.01em;
+}
+
+.guide__intro {
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  line-height: 1.8;
+  font-weight: 300;
+  color: var(--bone);
+  opacity: 0.92;
+  margin: 0 0 3rem;
+  max-width: 38rem;
+}
+
+.guide__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  margin-bottom: 3rem;
+  border-top: 1px solid rgba(138, 143, 146, 0.18);
+  padding-top: 1.75rem;
+}
+
+.guide__step {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 1.25rem;
+}
+
+.guide__step-index {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--silver-dim);
+  font-size: 0.95rem;
+  padding-top: 0.15rem;
+}
+
+.guide__step-label {
+  margin: 0 0 0.4rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--silver);
+}
+
+.guide__step-text {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.75;
+  font-weight: 300;
+  color: var(--bone);
+  opacity: 0.85;
+}
+
+.guide__closing {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  line-height: 1.6;
+  color: var(--silver);
+  border-top: 1px solid rgba(138, 143, 146, 0.18);
+  padding-top: 2rem;
+  max-width: 36rem;
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: clamp(5rem, 16vh, 9rem) 1.5rem clamp(4rem, 10vh, 6rem);
+  background: var(--black);
+}
+
+.footer__text {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+  color: var(--bone);
+  max-width: 30rem;
+  margin: 0 auto 2.5rem;
+  line-height: 1.6;
+}
+
+.footer__back {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--silver);
+  border-bottom: 1px solid var(--silver-dim);
+  padding-bottom: 0.4rem;
+  transition: color 600ms var(--ease-liturgy);
+}
+
+.footer__back:hover {
+  color: var(--bone);
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .hero__scroll-cue span {
+    animation: none;
+  }
+}
+
+/* ---------- Small phones ---------- */
+
+@media (max-width: 480px) {
+  .guide__copy {
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+  }
+  .guide__step {
+    grid-template-columns: 2rem 1fr;
+    gap: 0.9rem;
+  }
+}
