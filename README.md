@@ -8,7 +8,7 @@ a React and TypeScript SPA. Each method is illustrated with a frame-by-frame
 video sequence scrubbed by scroll position, the same technique used on
 Apple's product pages, powered by GSAP 3 and ScrollTrigger.
 
-[![Deploy to GitHub Pages](https://img.shields.io/github/actions/workflow/status/your-username/abyssalLiturgy/deploy.yml?branch=main&label=deploy&logo=githubactions&logoColor=white&style=flat-square)](../../actions)
+[![Deploy to GitHub Pages](https://img.shields.io/github/actions/workflow/status/hassanireza/abyssalLiturgy/deploy.yml?branch=main&label=deploy&logo=githubactions&logoColor=white&style=flat-square)](../../actions)
 [![License: MIT](https://img.shields.io/badge/license-MIT-8a8f92?style=flat-square)](./LICENSE)
 [![React](https://img.shields.io/badge/react-18-e8e4da?style=flat-square&logo=react&logoColor=0a0a0c)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/typescript-5-e8e4da?style=flat-square&logo=typescript&logoColor=0a0a0c)](https://www.typescriptlang.org)
