@@ -1,0 +1,71 @@
+<svg width="900" height="360" viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#12151c"/>
+      <stop offset="100%" stop-color="#0a0a0c"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a8f92"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="360" fill="url(#bg)"/>
+
+  <!-- Scroll input -->
+  <g>
+    <rect x="30" y="150" width="150" height="60" rx="4" fill="none" stroke="#8a8f92" stroke-width="1"/>
+    <text x="105" y="176" text-anchor="middle" fill="#e8e4da" font-family="Georgia, serif" font-style="italic" font-size="15">Scroll</text>
+    <text x="105" y="196" text-anchor="middle" fill="#8a8f92" font-family="Arial, sans-serif" font-size="10" letter-spacing="1">USER INPUT</text>
+  </g>
+
+  <line x1="180" y1="180" x2="240" y2="180" stroke="#8a8f92" stroke-width="1" marker-end="url(#arrow)"/>
+
+  <!-- ScrollTrigger -->
+  <g>
+    <rect x="245" y="140" width="170" height="80" rx="4" fill="none" stroke="#e8e4da" stroke-width="1.25"/>
+    <text x="330" y="172" text-anchor="middle" fill="#e8e4da" font-family="Georgia, serif" font-style="italic" font-size="16">ScrollTrigger</text>
+    <text x="330" y="192" text-anchor="middle" fill="#8a8f92" font-family="Arial, sans-serif" font-size="10" letter-spacing="1">start: top top</text>
+    <text x="330" y="206" text-anchor="middle" fill="#8a8f92" font-family="Arial, sans-serif" font-size="10" letter-spacing="1">end: bottom bottom</text>
+  </g>
+
+  <line x1="415" y1="170" x2="480" y2="110" stroke="#8a8f92" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="415" y1="190" x2="480" y2="255" stroke="#8a8f92" stroke-width="1" marker-end="url(#arrow)"/>
+
+  <!-- progress label -->
+  <text x="440" y="150" fill="#8a8f92" font-family="Arial, sans-serif" font-size="10" letter-spacing="1" transform="rotate(-27 440 150)">progress 0 to 1</text>
+  <text x="440" y="228" fill="#8a8f92" font-family="Arial, sans-serif" font-size="10" letter-spacing="1" transform="rotate(24 440 228)">progress 0 to 1</text>
+
+  <!-- Frame sequence -->
+  <g>
+    <rect x="485" y="60" width="170" height="100" rx="4" fill="none" stroke="#e8e4da" stroke-width="1.25"/>
+    <text x="570" y="98" text-anchor="middle" fill="#e8e4da" font-family="Georgia, serif" font-style="italic" font-size="16">Frame Index</text>
+    <text x="570" y="120" text-anchor="middle" fill="#8a8f92" font-family="Arial, sans-serif" font-size="10" letter-spacing="1">progress * (frameCount-1)</text>
+    <text x="570" y="140" text-anchor="middle" fill="#8a8f92" font-family="Arial, sans-serif" font-size="10" letter-spacing="1">drawn to sticky canvas</text>
+  </g>
+
+  <!-- Text offset -->
+  <g>
+    <rect x="485" y="205" width="170" height="100" rx="4" fill="none" stroke="#e8e4da" stroke-width="1.25"/>
+    <text x="570" y="243" text-anchor="middle" fill="#e8e4da" font-family="Georgia, serif" font-style="italic" font-size="16">Text Offset</text>
+    <text x="570" y="265" text-anchor="middle" fill="#8a8f92" font-family="Arial, sans-serif" font-size="10" letter-spacing="1">-progress * overflow</text>
+    <text x="570" y="285" text-anchor="middle" fill="#8a8f92" font-family="Arial, sans-serif" font-size="10" letter-spacing="1">translateY on copy block</text>
+  </g>
+
+  <line x1="655" y1="110" x2="720" y2="110" stroke="#8a8f92" stroke-width="1" marker-end="url(#arrow)"/>
+  <line x1="655" y1="255" x2="720" y2="255" stroke="#8a8f92" stroke-width="1" marker-end="url(#arrow)"/>
+
+  <!-- Outputs -->
+  <g>
+    <rect x="725" y="70" width="145" height="80" rx="4" fill="none" stroke="#8a8f92" stroke-width="1"/>
+    <text x="797" y="105" text-anchor="middle" fill="#e8e4da" font-family="Georgia, serif" font-style="italic" font-size="15">Canvas</text>
+    <text x="797" y="124" text-anchor="middle" fill="#8a8f92" font-family="Arial, sans-serif" font-size="10" letter-spacing="1">exact frame shown</text>
+  </g>
+
+  <g>
+    <rect x="725" y="215" width="145" height="80" rx="4" fill="none" stroke="#8a8f92" stroke-width="1"/>
+    <text x="797" y="250" text-anchor="middle" fill="#e8e4da" font-family="Georgia, serif" font-style="italic" font-size="15">Recipe Text</text>
+    <text x="797" y="269" text-anchor="middle" fill="#8a8f92" font-family="Arial, sans-serif" font-size="10" letter-spacing="1">revealed in step</text>
+  </g>
+
+  <text x="450" y="335" text-anchor="middle" fill="#55595c" font-family="Arial, sans-serif" font-size="11" letter-spacing="2">BOTH OUTPUTS SHARE ONE PROGRESS VALUE, SO THEY BEGIN AND FINISH TOGETHER</text>
+</svg>
