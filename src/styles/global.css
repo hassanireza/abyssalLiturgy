@@ -337,11 +337,16 @@ ul {
 .frame-sequence__sticky {
   position: sticky;
   top: 0;
-  width: 100%;
   height: 100svh;
   height: 100vh;
+  max-width: 100%;
+  aspect-ratio: 9 / 16;
+  margin: 0 auto;
   background: var(--shadow-blue);
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .frame-sequence__canvas {
@@ -359,8 +364,7 @@ ul {
 
 .guide__copy-col {
   display: flex;
-  min-height: 100svh;
-  min-height: 100vh;
+  min-height: var(--frame-scroll-h, 100vh);
   align-items: center;
 }
 
@@ -530,6 +534,11 @@ ul {
     padding: 3rem 1.25rem 4rem;
   }
   .frame-sequence__sticky {
-    height: 70vh;
+    position: static;
+    height: auto;
+    width: 100%;
+    max-width: 22rem;
+    aspect-ratio: 9 / 16;
+    margin: 0 auto;
   }
 }

@@ -23,6 +23,7 @@ export function Hero() {
     const v = videoRef.current;
     if (!v) return;
     v.muted = false;
+    v.currentTime = 0;
     v.play().catch(() => {
       /* ignore, control still flips visually */
     });
@@ -41,7 +42,6 @@ export function Hero() {
           poster={`${base}video-posters/${slug}.jpg`}
           autoPlay
           muted
-          loop
           playsInline
           preload="auto"
         />

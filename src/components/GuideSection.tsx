@@ -61,7 +61,10 @@ export function GuideSection({ guide, index }: GuideSectionProps) {
         />
       </div>
 
-      <div className="guide__copy-col">
+      <div
+        className="guide__copy-col"
+        style={{ ['--frame-scroll-h' as string]: `${guide.frameCount * 26}px` } as React.CSSProperties}
+      >
         <div className="guide__copy" ref={copyRef}>
           <p className="guide__numeral" data-reveal>
             {guide.numeral}
