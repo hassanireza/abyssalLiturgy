@@ -2,10 +2,12 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 // Base is set to the repo name for GitHub Pages project sites.
-// Change '/brew-guide/' to '/<your-repo-name>/' if you rename the repo,
-// or to '/' if deploying to a user/organization root site (e.g. username.github.io).
+// This must match your GitHub repo name exactly (case-sensitive), e.g.
+// for https://username.github.io/abyssalLiturgy/ the base is '/abyssalLiturgy/'.
+// If you rename the repo, update this to match, or use '/' if deploying to
+// a root user/organization site (username.github.io).
 export default defineConfig({
-  base: '/brew-guide/',
+  base: '/abyssalLiturgy/',
   plugins: [react()],
   build: {
     outDir: 'dist',
