@@ -363,17 +363,27 @@ ul {
 }
 
 .guide__copy-col {
-  display: flex;
+  position: relative;
   min-height: var(--frame-scroll-h, 100vh);
-  align-items: center;
+}
+
+.guide__copy-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
 }
 
 .guide__copy {
   position: relative;
   z-index: 2;
   max-width: 34rem;
-  padding: clamp(3.5rem, 10vh, 7rem) clamp(1.5rem, 5vw, 3.5rem);
+  padding: clamp(3.5rem, 10vh, 7rem) clamp(1.5rem, 5vw, 3.5rem) clamp(3.5rem, 10vh, 7rem);
   margin: 0 auto;
+  will-change: transform;
 }
 
 .guide__numeral {
@@ -529,9 +539,15 @@ ul {
     min-height: 0;
     padding: 0;
   }
+  .guide__copy-sticky {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
   .guide__copy {
     max-width: 100%;
     padding: 3rem 1.25rem 4rem;
+    transform: none !important;
   }
   .frame-sequence__sticky {
     position: static;
